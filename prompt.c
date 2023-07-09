@@ -12,14 +12,14 @@ int main(int argc, char **argv) {
   while (1) {
 
     /* Output our Prompt */
-		fputs("lispy > ", stdout);
+    fputs("lispy > ", stdout);
 
-		/* Read a line of user input of maximum size 2048 */
-		fgets(input, 2048, stdin);
+    /* Read a line of user input of maximum size 2048 */
+    fgets(input, 2048, stdin);
 
-		/* Echo input back to user */
-		printf("No you're a %s", input);
+    /* Echo input back to user */
+    printf("No you're a %s", input);
   }
 
-	return 0;
+  return 0;
 }
