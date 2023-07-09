@@ -1,7 +1,31 @@
 #include <stdio.h>
+#include <stdlib.h>
+
+/* If we are compiling on Windows, compile these functions */
+#ifdef _WIN32
+#include <string.h>
 
 /* Declare a buffer for user input of size 2048 */
-static char input[2048];
+static char buffer[2048];
+
+/* Fake readline function */
+char *readline(char *prompt) {
+  fputs(prompt, stdout);
+  fgets(buffer, 2048, stdin);
+  char *cpy = malloc(strlen(buffer) + 1);
+  strcpy_s(cpy, strlen(cpy), buffer);
+  cpy[strlen(cpy) - 1] = '\0';
+  return cpy;
+}
+
+/* Fake add_history function */
+void add_history(char *unused) {}
+
+/* Otherwise include the editline headers */
+#else
+#include <editline/history.h>
+#include <editline/readine.h>
+#endif
 
 int main(int argc, char **argv) {
   /* Print Version and Exit info */
@@ -11,14 +35,17 @@ int main(int argc, char **argv) {
   /* In a never ending loop */
   while (1) {
 
-    /* Output our Prompt */
-    fputs("lispy > ", stdout);
+    /* Output our prompt and get input */
+    char *input = readline("lispy > ");
 
-    /* Read a line of user input of maximum size 2048 */
-    fgets(input, 2048, stdin);
+    /* Save input to history */
+    add_history(input);
 
     /* Echo input back to user */
     printf("No you're a %s", input);
+
+    /* Free retrieved input */
+    free(input);
   }
 
   return 0;
