@@ -29,20 +29,21 @@ void add_history(char *unused) {}
 
 int main(int argc, char **argv) {
   /* Print Version and Exit info */
-  puts("Lispy Version 0.0.0.0.1");
+  puts("Cup Version 0.0.0.0.1");
+  puts("Type \"help\" for more information.");
   puts("Press Ctrl+c to Exit\n");
 
   /* In a never ending loop */
   while (1) {
 
     /* Output our prompt and get input */
-    char *input = readline("lispy > ");
+    char *input = readline("cup > ");
 
     /* Save input to history */
     add_history(input);
 
     /* Echo input back to user */
-    printf("No you're a %s\n", input);
+    printf("No, %s is wrong. But here's a cup of coffee for you.\n", input);
 
     /* Free retrieved input */
     free(input);
